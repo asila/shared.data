@@ -1,10 +1,11 @@
 #load required library
 library(compositions)
+#setwd where compositional data is
+#setwd("~/Dropbox/compositional.data")
+
 #read data  sample XRD data
-xrd<-read.csv("~/Dropbox/AfSIS_reporting_data/Seperated_datasets/AfSIS_xrd.csv")
-xrd.a<-xrd[837:890,]
-setwd("")
-write.table(xrd.a,file="compositional data.csv",sep=",",row.names=FALSE)
+xrd<-read.csv("~compositional data.csv")
+
 #create compositional data prior to taking ilr  
 xrd.ac<-acomp(xrd.a[,-1])#Remove  the first column containing sample id
 
@@ -13,4 +14,5 @@ xrd.ilr<- ilr (xrd.ac)
 #add column with sample ids
 xrd.ilrs<-as.data.frame(cbind(as.vector(xrd.a[,1]),xrd.ilr))
 
-plot(xrd.ilrs[,3:4])
+#xrd.ilrs is the ilr transformed and can be used for other type of analysis. However the authors of compositions library cautions:
+#"the interpretation of the results may be difficult, since there is no one-to-one relation between the original parts and the transformed variables" 
